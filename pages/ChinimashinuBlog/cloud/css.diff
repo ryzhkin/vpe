@@ -1,0 +1,112 @@
+352c352
+<         background-position: -5px -417px;
+---
+>         background-position: -5px -402px;
+468,469c468
+<       font-size: 0;
+<       padding-top: 43px; }
+---
+>       font-size: 0; }
+472c471,472
+<         margin: 3px;
+---
+>         padding: 0 5px;
+>         margin: 7px 0 7px 7px;
+476,477c476,479
+<         #content .share ul li a {
+<           width: 48px;
+---
+>         #content .share ul li a.vk {
+>           background-position: -5px -362px;
+>           background-repeat: no-repeat;
+>           overflow: hidden;
+479,539c481,507
+<           font-size: 12px;
+<           border-radius: 4px;
+<           border: 1px solid #adadad;
+<           position: relative;
+<           height: 18px;
+<           line-height: 18px; }
+<           #content .share ul li a:before {
+<             content: ' ';
+<             border: 5px solid #fff;
+<             border-right: 50%;
+<             position: absolute;
+<             top: -47px;
+<             margin: auto;
+<             left: 0;
+<             right: 0; }
+<           #content .share ul li a:after {
+<             content: ' ';
+<             background-position: -5px -322px;
+<             background-repeat: no-repeat;
+<             overflow: hidden;
+<             display: inline-block;
+<             width: 8px;
+<             height: 5px;
+<             background-image: url('../images/sprite.png');
+<             position: absolute;
+<             top: -5px;
+<             margin: auto;
+<             left: 0;
+<             right: 0; }
+<           #content .share ul li a.vk:before {
+<             background-position: -5px -377px;
+<             background-repeat: no-repeat;
+<             overflow: hidden;
+<             display: inline-block;
+<             width: 30px;
+<             height: 30px;
+<             background-image: url('../images/sprite.png'); }
+<           #content .share ul li a.ok:before {
+<             background-position: -5px -197px;
+<             background-repeat: no-repeat;
+<             overflow: hidden;
+<             display: inline-block;
+<             width: 30px;
+<             height: 30px;
+<             background-image: url('../images/sprite.png'); }
+<           #content .share ul li a.fb:before {
+<             background-position: -5px -119px;
+<             background-repeat: no-repeat;
+<             overflow: hidden;
+<             display: inline-block;
+<             width: 30px;
+<             height: 30px;
+<             background-image: url('../images/sprite.png'); }
+<           #content .share ul li a.tw:before {
+<             background-position: -5px -337px;
+<             background-repeat: no-repeat;
+<             overflow: hidden;
+<             display: inline-block;
+<             width: 30px;
+<             height: 30px;
+<             background-image: url('../images/sprite.png'); }
+---
+>           width: 30px;
+>           height: 30px;
+>           background-image: url('../images/sprite.png'); }
+>         #content .share ul li a.ok {
+>           background-position: -5px -197px;
+>           background-repeat: no-repeat;
+>           overflow: hidden;
+>           display: inline-block;
+>           width: 30px;
+>           height: 30px;
+>           background-image: url('../images/sprite.png'); }
+>         #content .share ul li a.fb {
+>           background-position: -5px -119px;
+>           background-repeat: no-repeat;
+>           overflow: hidden;
+>           display: inline-block;
+>           width: 30px;
+>           height: 30px;
+>           background-image: url('../images/sprite.png'); }
+>         #content .share ul li a.tw {
+>           background-position: -5px -322px;
+>           background-repeat: no-repeat;
+>           overflow: hidden;
+>           display: inline-block;
+>           width: 30px;
+>           height: 30px;
+>           background-image: url('../images/sprite.png'); }

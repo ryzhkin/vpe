@@ -1,0 +1,103 @@
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+</head>
+<body role="document">
+  <h3>Видео инструкция по использованию</h3>
+
+
+  <h3>Инструкция</h3>
+
+  <h4>1 - Подключите все необходимые библиотеки</h4>
+  <!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">    <span style="color: #fb660a; font-weight: bold">&lt;script </span><span style="color: #ff0086; font-weight: bold">src=</span><span style="color: #0086d2">&quot;vendors/jquery-2.1.1.min.js&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;&lt;/script&gt;</span>
+    <span style="color: #fb660a; font-weight: bold">&lt;script </span><span style="color: #ff0086; font-weight: bold">src=</span><span style="color: #0086d2">&quot;vendors/bootstrap-3.2.0/js/bootstrap.min.js&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;&lt;/script&gt;</span>
+    <span style="color: #fb660a; font-weight: bold">&lt;script </span><span style="color: #ff0086; font-weight: bold">src=</span><span style="color: #0086d2">&quot;vendors/tinymce/js/tinymce/tinymce.min.js&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;&lt;/script&gt;</span>
+
+    <span style="color: #fb660a; font-weight: bold">&lt;script </span><span style="color: #ff0086; font-weight: bold">src=</span><span style="color: #0086d2">&quot;js/vpe.js&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+  <h4>2 - Создайте объект Vpe для редактирования содержимого страницы</h4>
+  <!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">var</span> <span style="color: #ffffff">vpe</span> <span style="color: #ffffff">=</span> <span style="color: #fb660a; font-weight: bold">new</span> <span style="color: #ffffff">Vpe(</span>
+    <span style="color: #ffffff">jQuery(</span><span style="color: #0086d2">&#39;#editPage&#39;</span><span style="color: #ffffff">),</span>                   <span style="color: #008800; font-style: italic; background-color: #0f140f">// Указатель на контейнер куда будет загружатся редактор страницы</span>
+    <span style="color: #0086d2">&#39;htt://test.com/editPage.html&#39;</span><span style="color: #ffffff">,</span>        <span style="color: #008800; font-style: italic; background-color: #0f140f">// URL редактируемой страницы</span>
+    <span style="color: #ffffff">{</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * Обработчик вызываемый при добавлении нового контента</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param pageURL  - URL редактируемой страницы</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param blockID  - Уникальный в рамках страницы идентификатор блока элементов</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param content  - HTML контент нового элемента</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param afterAdd(content, blockID, itemID) - обработчик который нужно вызвать после асинхронных действий</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         *        itemID - уникальный идентификатор нового контента (может быть id в таблице БД где хранятся данные)</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         */</span>
+        <span style="color: #ffffff">onAddContent:</span> <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">(pageURL,</span> <span style="color: #ffffff">blockID,</span> <span style="color: #ffffff">content,</span> <span style="color: #ffffff">afterAdd)</span> <span style="color: #ffffff">{</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Асинхронные действия</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// ....</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Обработчик который нужно вызвать после асинхронных действий</span>
+            <span style="color: #ffffff">afterAdd(content,</span> <span style="color: #ffffff">blockID,</span> <span style="color: #ffffff">-</span><span style="color: #0086f7; font-weight: bold">100</span><span style="color: #ffffff">);</span>
+        <span style="color: #ffffff">},</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * Обработчик вызываемый при редактировании контента</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param itemID   - уникальный идентификатор контента (может быть id в таблице БД где хранятся данные)</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param content  - HTML контент элемента</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param afterEdit(content) - обработчик который нужно вызвать после асинхронных действий</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         */</span>
+        <span style="color: #ffffff">onEditContent:</span> <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">(itemID,</span> <span style="color: #ffffff">content,</span> <span style="color: #ffffff">afterEdit)</span> <span style="color: #ffffff">{</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Асинхронные действия</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// ....</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Обработчик который нужно вызвать после асинхронных действий</span>
+            <span style="color: #ffffff">afterEdit(content);</span>
+        <span style="color: #ffffff">},</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * Обработчик вызываемый при удалении контента</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param itemID      - уникальный идентификатор контента (может быть id в таблице БД где хранятся данные)</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param afterDelete  - обработчик который нужно вызвать после асинхронных действий</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         */</span>
+        <span style="color: #ffffff">onDeleteContent:</span> <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">(itemID,</span> <span style="color: #ffffff">afterDelete)</span> <span style="color: #ffffff">{</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Асинхронные действия</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// ....</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Обработчик который нужно вызвать после асинхронных действий</span>
+            <span style="color: #ffffff">afterDelete();</span>
+        <span style="color: #ffffff">},</span>
+        <span style="color: #008800; font-style: italic; background-color: #0f140f">/**</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * Обработчик вызываемый при изминении порядка контента</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         * @param items  - массив идентификаторов контента в новом порядке</span>
+<span style="color: #008800; font-style: italic; background-color: #0f140f">         */</span>
+        <span style="color: #ffffff">onReOrderContent:</span> <span style="color: #fb660a; font-weight: bold">function</span> <span style="color: #ffffff">(items)</span> <span style="color: #ffffff">{</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// Асинхронные действия</span>
+            <span style="color: #008800; font-style: italic; background-color: #0f140f">// ....</span>
+        <span style="color: #ffffff">}</span>
+    <span style="color: #ffffff">}</span>
+<span style="color: #ffffff">);</span>
+</pre></div>
+
+
+
+  <h4>3 - Добавте на страницу редактируемые блоки и шаблоны новых элементов</h4>
+
+  Редактируемый блок создается путем добавления атрибута  edit-page-block="blockName"
+
+  <!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">&lt;ul</span> <span style="color: #ff0086; font-weight: bold">edit-page-block=</span><span style="color: #0086d2">&quot;name2&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+
+<span style="color: #fb660a; font-weight: bold">&lt;/ul&gt;</span>
+</pre></div>
+
+
+  Шаблон нового элемента создается путем добавления атрибута edit-page-block-item-template к скрытому элементу style="display: none;"
+  <!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">&lt;ul</span> <span style="color: #ff0086; font-weight: bold">edit-page-block=</span><span style="color: #0086d2">&quot;name2&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+  <span style="color: #fb660a; font-weight: bold">&lt;li</span> <span style="color: #ff0086; font-weight: bold">class=</span><span style="color: #0086d2">&quot;inner ava-block&quot;</span> <span style="color: #ff0086; font-weight: bold">edit-page-block-item-template</span> <span style="color: #ff0086; font-weight: bold">style=</span><span style="color: #0086d2">&quot;display: none;&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+    <span style="color: #fb660a; font-weight: bold">&lt;img</span> <span style="color: #ff0086; font-weight: bold">src=</span><span style="color: #0086d2">&quot;images/ava1.jpg&quot;</span> <span style="color: #ff0086; font-weight: bold">alt=</span><span style="color: #0086d2">&quot;&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+    <span style="color: #fb660a; font-weight: bold">&lt;div</span> <span style="color: #ff0086; font-weight: bold">class=</span><span style="color: #0086d2">&quot;wrapper&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+     <span style="color: #fb660a; font-weight: bold">&lt;h5&gt;</span>Шульман Ольга Викторовна<span style="color: #fb660a; font-weight: bold">&lt;/h5&gt;</span>
+     <span style="color: #fb660a; font-weight: bold">&lt;p&gt;</span>Поролон ни в желудке, ни в кишечнике не рассасывается. Если поролон обильно пропитается химусом, а толстой кишке еще и калом, то это может быть причиной острой кишечной непроходимости. Естественно, желательно бы обратится в хирургический стационар, хотя бы для того, чтобы выполнить обзорную рентгенографию живота для определения наличия непроходимости кишечника. <span style="color: #fb660a; font-weight: bold">&lt;/p&gt;</span>
+      <span style="color: #fb660a; font-weight: bold">&lt;div</span> <span style="color: #ff0086; font-weight: bold">class=</span><span style="color: #0086d2">&quot;message-foot&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+       <span style="color: #fb660a; font-weight: bold">&lt;span</span> <span style="color: #ff0086; font-weight: bold">class=</span><span style="color: #0086d2">&quot;date&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>Сегодня в 12:45<span style="color: #fb660a; font-weight: bold">&lt;/span&gt;</span>
+       <span style="color: #fb660a; font-weight: bold">&lt;a</span> <span style="color: #ff0086; font-weight: bold">href=</span><span style="color: #0086d2">&quot;#&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>Комментировать<span style="color: #fb660a; font-weight: bold">&lt;/a&gt;</span>
+      <span style="color: #fb660a; font-weight: bold">&lt;/div&gt;</span>
+    <span style="color: #fb660a; font-weight: bold">&lt;/div&gt;</span>
+  <span style="color: #fb660a; font-weight: bold">&lt;/li&gt;</span>
+<span style="color: #fb660a; font-weight: bold">&lt;/ul&gt;</span>
+</pre></div>
+
+
+</body>
+</html>
