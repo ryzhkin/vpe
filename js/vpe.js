@@ -470,9 +470,9 @@ var Vpe = function (contaner, url, options) {
           menubar  : false,
           toolbar_items_size: 'small',
           plugins: [
-              "table textcolor colorpicker hr anchor lists link advlist autolink image media moxiemanager"
+              "table textcolor colorpicker hr anchor lists link advlist autolink image media moxiemanager code"
           ],
-          toolbar1: "table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor | link image media",
+          toolbar1: "code | table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor | link image media",
           image_advtab: true,
           relative_urls : false,
           remove_script_host : true,
