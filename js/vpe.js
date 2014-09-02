@@ -75,11 +75,13 @@ var Vpe = function (contaner, url, options) {
               if (typeof(self.options.onAddContent) == 'function') {
                  self.options.onAddContent(self.page.location.href.split('#')[0], jQuery(self.currentBlock).attr('edit-page-block'), content, function (content, blockID, itemID) {
                    self.addContent(content, blockID, itemID);
+                   self.addBlockItemHandler();
                  });
               } else {
                 self.addContent(content);
+                self.addBlockItemHandler();
               }
-              self.addBlockItemHandler();
+
           }
       }
     });
@@ -127,6 +129,9 @@ var Vpe = function (contaner, url, options) {
         });
   });
   jQuery(this.editItemButton).on('click', function () {
+    self.currentItem = jQuery(self.pageBlockItemToolbar)[0].currentItem;
+    jQuery(self.pageBlockItemToolbar).hide();
+
     var content = '';
     if (self.currentItem !== null) {
       content = jQuery(self.currentItem).html();
@@ -182,6 +187,9 @@ var Vpe = function (contaner, url, options) {
         });
   });
   jQuery(this.deleteItemButton).on('click', function () {
+    self.currentItem = jQuery(self.pageBlockItemToolbar)[0].currentItem;
+    jQuery(self.pageBlockItemToolbar).hide();
+
     if (confirm('У далить содержимое?')) {
       if (typeof(self.options.onDeleteContent) == 'function') {
         self.options.onDeleteContent(jQuery(self.currentItem).attr('edit-page-block-item'), function () {
@@ -230,6 +238,9 @@ var Vpe = function (contaner, url, options) {
         });
   });
   jQuery(this.upItemButton).on('click', function () {
+    self.currentItem = jQuery(self.pageBlockItemToolbar)[0].currentItem;
+    jQuery(self.pageBlockItemToolbar).hide();
+
     var rootBlock = jQuery(self.currentItem).closest('[edit-page-block]');
     jQuery(rootBlock).find('[edit-page-block-item]').each(function (index) {
       if (index > 0 && self.currentItem == this) {
@@ -277,6 +288,9 @@ var Vpe = function (contaner, url, options) {
         });
   });
   jQuery(this.downItemButton).on('click', function () {
+     self.currentItem = jQuery(self.pageBlockItemToolbar)[0].currentItem;
+     jQuery(self.pageBlockItemToolbar).hide();
+
      var rootBlock = jQuery(self.currentItem).closest('[edit-page-block]');
      var l = jQuery(rootBlock).find('[edit-page-block-item]').length;
      jQuery(rootBlock).find('[edit-page-block-item]').each(function (index) {
@@ -299,27 +313,23 @@ var Vpe = function (contaner, url, options) {
 
   jQuery(this.iframeContaner).on('load', function () {
     this.page = jQuery(this.iframeContaner)[0].contentWindow.document;
-    //console.log(this.page);
-    //console.log(jQuery(this.page).find('[edit-page-block]'));
+    jQuery(this.page).find('a').attr('href', 'javascript:void(0)');
 
-    jQuery(this.page).find('[edit-page-block]').css({
-      border: 'dashed red 1px'
-    });
+    setTimeout(function () {
+      // Показать управление блоками контента
+      this.addBlockHandler();
+      // Показать управление элементами контента
+      this.addBlockItemHandler();
+    }.bind(this), 2000);
 
-    jQuery(this.page).find('[edit-page-block]').on('mouseenter', function () {
-      jQuery(self.page).find('body').append(self.pageBlockToolbar);
-      jQuery(self.pageBlockToolbar).css({
-        top: jQuery(this).offset().top - jQuery(self.pageBlockToolbar).height(),
-        left: jQuery(this).offset().left
-      });
-      jQuery(self.pageBlockToolbar).show();
-      self.currentBlock = this;
-    });
-    jQuery(this.page).find('[edit-page-block]').on('mouseleave', function () {
-      /*setTimeout(function () {
-       jQuery(self.pageBlockToolbar).hide();
-      }, 3000);*/
+    jQuery(this.page).ajaxStop(function() {
+      // Executed when all ajax requests are done.
+      // console.log('Executed when all ajax requests are done.');
+      // Показать управление блоками контента
+      self.addBlockHandler();
 
+      // Показать управление элементами контента
+      self.addBlockItemHandler();
     });
 
 
@@ -333,21 +343,67 @@ var Vpe = function (contaner, url, options) {
     src       : url
   });
 
+  // Обработчики управления блоком
+  this.addBlockHandler = function () {
+      // Визуально выделяем управляемый блок контента красной пунктирной рамокой
+      jQuery(this.page).find('[edit-page-block]').css({
+          border: 'dashed red 1px'
+      });
+
+      jQuery(this.page).find('[edit-page-block]').on('mouseenter', function () {
+          jQuery(self.page).find('body').append(self.pageBlockToolbar);
+          jQuery(self.pageBlockToolbar).css({
+              top: jQuery(this).offset().top - jQuery(self.pageBlockToolbar).height(),
+              left: jQuery(this).offset().left
+          });
+          jQuery(self.pageBlockToolbar).show();
+          self.currentBlock = this;
+      });
+      jQuery(this.page).find('[edit-page-block]').on('mouseleave', function () {
+          /*setTimeout(function () {
+           jQuery(self.pageBlockToolbar).hide();
+           }, 3000);*/
+
+      });
+  }
+
+  // Обработчики управления контентом
   this.addBlockItemHandler = function () {
+    // Визуально выделяем управляемый элементом контента зеленой пунктирной рамокой
+    jQuery(this.page).find('[edit-page-block-item]').css({
+      border: 'dashed green 1px',
+      cursor: 'pointer'
+    });
+
     jQuery(this.page).find('[edit-page-block-item]').off('mouseenter');
     jQuery(this.page).find('[edit-page-block-item]').on('mouseenter', function () {
-        jQuery(self.page).find('body').append(self.pageBlockItemToolbar);
-        jQuery(self.pageBlockItemToolbar).css({
-            top: jQuery(this).offset().top - jQuery(self.pageBlockItemToolbar).height(),
-            left: jQuery(this).offset().left
+        jQuery(this).attr('origBackgroundColor', jQuery(this).css('backgroundColor'));
+        jQuery(this).attr('origOptical', jQuery(this).css('optical'));
+        jQuery(this).css({
+          backgroundColor : '#D4FCD4',
+          optical         : 0.5
         });
+
+        jQuery(self.page).find('body').append(self.pageBlockItemToolbar);
         jQuery(self.pageBlockItemToolbar).show();
-        self.currentItem = this;
+        jQuery(self.pageBlockItemToolbar).css({
+          top  : jQuery(this).offset().top /*+ jQuery(self.pageBlockItemToolbar).innerHeight()*/,
+          left : jQuery(this).offset().left
+        });
+        jQuery(self.pageBlockItemToolbar)[0].currentItem = this;
     });
 
     jQuery(this.page).find('[edit-page-block-item]').off('mouseleave');
+    jQuery(this.page).find('[edit-page-block-item]').on('mouseleave', function () {
+      jQuery(this).css({
+        backgroundColor : jQuery(this).attr('origBackgroundColor'),
+        optical         : jQuery(this).attr('origOptical')
+      });
+    });
+
+
   }
-  this.addBlockItemHandler();
+
 
   this.showEditor = function (options) {
       var html = '' +
@@ -511,10 +567,6 @@ var MsgDialog = function (options) {
     });
     jQuery('body').append(this.contentPanel);
     jQuery(this.contentPanel).html(options.content);
-
-
-
-
 
 
     this.cancel = function () {
