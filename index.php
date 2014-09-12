@@ -21,6 +21,17 @@
     <!-- Bootstrap theme -->
     <link href="vendors/bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="vendors/bootstrap-3.2.0/css/docs.min.css" rel="stylesheet">
+    <link href="vendors/bootstrap-dialog/css/bootstrap-dialog.min.css" rel="stylesheet">
+    <style>
+        .modal-dialog {
+            width: 1042px;
+        }
+        .bootstrap-dialog .modal-header.bootstrap-dialog-draggable {
+            cursor: move;
+        }
+    </style>
+
+
 
     <!-- Custom styles for this template -->
    <!-- <link href="theme.css" rel="stylesheet">-->
@@ -38,6 +49,9 @@
 
     <script src="vendors/jquery-2.1.1.min.js"></script>
     <script src="vendors/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+
+    <script src="vendors/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
+
 
     <script src="vendors/tinymce/js/tinymce/tinymce.min.js"></script>
     <!--<script src="vendors/tinymce/js/tinymce/jquery.tinymce.min.js"></script>-->

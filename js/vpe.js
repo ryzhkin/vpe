@@ -406,35 +406,74 @@ var Vpe = function (contaner, url, options) {
 
 
   this.showEditor = function (options) {
-      var html = '' +
-          '<div class="bs-callout bs-callout-info" style="">' +
-          '<h4>Контент</h4>' +
-          ' <textarea edit-content-item class="form-control" rows="3" style="width: 700px; height: 250px;"></textarea>' +
-          '</div>' +
-          '<div style="text-align: right;">' +
-          ' <button type="button" class="btn btn-success" ok-edit-content-item>Сохранить</button>' +
-          ' <button type="button" class="btn btn-primary" cancel-edit-content-item>Отменить</button>' +
-          '</div>' +
-          '';
-      this.dialog.show({
+
+      if (typeof(BootstrapDialog) == 'function') {
+          $(document).on('focusin', function(e) {
+              if ($(e.target).closest(".mce-window").length) {
+                  e.stopImmediatePropagation();
+              }
+          });
+
+          BootstrapDialog.show({
+              title: 'Редактирование контента',
+              message: '<div style="width: 1000px;"><textarea edit-content-item class="form-control" rows="3" style="width: 700px; height: 250px;"></textarea></div>',
+              draggable: true,
+              buttons: [{
+                  label: 'Сохранить',
+                  cssClass: 'btn-success',
+                  icon: 'glyphicon glyphicon-check',
+                  action: function(dialogRef){
+                      if (typeof(options.onOk) == 'function') {
+                          options.onOk();
+                      }
+                      dialogRef.close();
+                  }
+              }, {
+                  label: 'Отменить',
+                  cssClass: 'btn-danger',
+                  icon: 'glyphicon glyphicon-remove',
+                  action: function(dialogRef){
+                      if (typeof(options.onCancel) == 'function') {
+                          options.onCancel();
+                      }
+                      dialogRef.close();
+                  }
+              }
+              ]
+          });
+
+      } else {
+        var html = '' +
+              '<div class="bs-callout bs-callout-info" style="">' +
+              '<h4>Контент</h4>' +
+              ' <textarea edit-content-item class="form-control" rows="3" style="width: 700px; height: 250px;"></textarea>' +
+              '</div>' +
+              '<div style="text-align: right;">' +
+              ' <button type="button" class="btn btn-success" ok-edit-content-item>Сохранить</button>' +
+              ' <button type="button" class="btn btn-primary" cancel-edit-content-item>Отменить</button>' +
+              '</div>' +
+              '';
+        this.dialog.show({
           content: html
-      });
+        });
+        jQuery('[cancel-edit-content-item]').off('click');
+        jQuery('[cancel-edit-content-item]').on('click', function () {
+              if (typeof(options.onCancel) == 'function') {
+                  options.onCancel();
+              }
+              self.dialog.cancel();
+        }.bind(this));
 
-      jQuery('[cancel-edit-content-item]').off('click');
-      jQuery('[cancel-edit-content-item]').on('click', function () {
-          if (typeof(options.onCancel) == 'function') {
-            options.onCancel();
-          }
-          self.dialog.cancel();
-      }.bind(this));
+        jQuery('[ok-edit-content-item]').off('click');
+        jQuery('[ok-edit-content-item]').on('click', function () {
+              if (typeof(options.onOk) == 'function') {
+                  options.onOk();
+              }
+              self.dialog.hide();
+        });
+      }
 
-      jQuery('[ok-edit-content-item]').off('click');
-      jQuery('[ok-edit-content-item]').on('click', function () {
-          if (typeof(options.onOk) == 'function') {
-              options.onOk();
-          }
-          self.dialog.hide();
-      });
+
 
 
       //tinymce.remove();
@@ -462,26 +501,29 @@ var Vpe = function (contaner, url, options) {
 
       });
 
+      setTimeout(function () {
       tinymce.init({
           selector : "textarea[edit-content-item]",
           theme    : "modern",
-          width    : 700,
+          width    : 1000,
           height   : 250,
           menubar  : false,
           toolbar_items_size: 'small',
           plugins: [
-              "table textcolor colorpicker hr anchor lists link advlist autolink image media moxiemanager code"
+              "table textcolor colorpicker hr anchor lists link advlist autolink image media moxiemanager code contextmenu "
           ],
-          toolbar1: "code | table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor | link image media",
+          toolbar1: " code | table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat forecolor backcolor fontselect fontsizeselect | link unlink anchor | image media",
           image_advtab: true,
           relative_urls : false,
           remove_script_host : true,
           document_base_url : document.location.href.split('#')[0],
           moxiemanager_title: 'Выбор файла',
           //skin: 'pepper-grinder',
-          content_css: styles
+          content_css: styles,
+          theme_advanced_resize_horizontal : true,
+          theme_advanced_resizing : true
       });
-
+      }, 200);
 
   }
 
