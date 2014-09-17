@@ -313,7 +313,11 @@ var Vpe = function (contaner, url, options) {
 
   jQuery(this.iframeContaner).on('load', function () {
     this.page = jQuery(this.iframeContaner)[0].contentWindow.document;
-    jQuery(this.page).find('a').attr('href', 'javascript:void(0)');
+    //jQuery(this.page).find('a').attr('href', 'javascript:void(0)');
+    jQuery(this.page).find('a').on('click', function (ev) {
+      ev.preventDefault();
+      return false;
+    });
 
     setTimeout(function () {
       // Показать управление блоками контента
