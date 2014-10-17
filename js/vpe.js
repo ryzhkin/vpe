@@ -505,8 +505,44 @@ var Vpe = function (contaner, url, options) {
 
       });
 
+
+      var relativeURL = document.location.href.split('#')[0];
+
+
+
       setTimeout(function () {
-      tinymce.init({
+          tinymce.init({
+              selector : "textarea[edit-content-item]",
+              theme    : "modern",
+              width    : 1000,
+              height   : jQuery(window).height() - 280,
+              menubar  : false,
+              toolbar_items_size: 'small',
+              plugins: [
+                  "table textcolor colorpicker hr anchor lists link advlist autolink image media code contextmenu responsivefilemanager"
+              ],
+              external_filemanager_path: document.location.pathname + "filemanager/",
+              filemanager_title:"Выбор файла" ,
+              filemanager_access_key: 'esy5v3cpepcskc00k8owg0oc0ksso0c',
+              external_plugins: { "filemanager" : document.location.pathname + "filemanager/plugin.min.js"},
+
+              toolbar1: " code | table | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat forecolor backcolor fontselect fontsizeselect | link unlink anchor | image media",
+              image_advtab: true,
+
+              relative_urls      : false,
+              remove_script_host : true,
+              //document_base_url  : document.location.href.split('#')[0].split(document.location.pathname)[0] + '/',
+              //document_base_url  : document.location.href.split('#')[0] + '/',
+
+
+
+              content_css: styles,
+              theme_advanced_resize_horizontal : true,
+              theme_advanced_resizing : true
+          });
+
+
+      /*tinymce.init({
           selector : "textarea[edit-content-item]",
           theme    : "modern",
           width    : 1000,
@@ -526,7 +562,7 @@ var Vpe = function (contaner, url, options) {
           content_css: styles,
           theme_advanced_resize_horizontal : true,
           theme_advanced_resizing : true
-      });
+      });*/
       }, 200);
 
   }
